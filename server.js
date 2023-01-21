@@ -39,8 +39,10 @@ app.get('/notes/list', async function(req, res){
 
 
 //find data by id 
-app.get('/notes/list/:userid',async function(req, res){
-    var notes = await Note.find({ userid:req.params.userid});
+app.get('/notes/list/:id',async function(req, res){
+    console.log("this is notes ssssssss");
+
+    var notes = await Note.find({id:req.params.id});
     res.status(201). json(notes);
 });
 
@@ -50,7 +52,7 @@ app.get('/notes/list/:userid',async function(req, res){
 
 //add data
 app.post('/notes/add', async function(req, res){
-    await Note.deleteOne({ id: req.body.id});
+    // await Note.deleteOne({ id: req.body.id});
     const newnotes = Note(
         {
         id:req.body.id,
@@ -62,10 +64,13 @@ app.post('/notes/add', async function(req, res){
    const noteData = await newnotes.save();
     const response = {
          message: "added", };
-    res.status(200).json(response);   
+    res.status(201).json(response);   
 });
     }
 );
+
+
+
 
 
 
@@ -76,10 +81,6 @@ app.post('/notes/delete',async function(req, res){
         message: "deleted", };
     res.status(200).json(response);
 });
-
-
-
-
 
 
 
